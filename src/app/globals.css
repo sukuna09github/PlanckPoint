@@ -1,0 +1,240 @@
+
+@import url('https://fonts.cdnfonts.com/css/selawik');
+@import url('https://fonts.cdnfonts.com/css/lovelo');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-body: 'Selawik', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+    --font-headline: 'Selawik', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+    --font-logo: 'Lovelo Black', sans-serif;
+
+    --background: 200 20% 97%; /* #F4F7F7 */
+    --foreground: 220 10% 20%; /* Dark Gray */
+    --card: 0 0% 100%;
+    --card-foreground: 220 10% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 10% 20%;
+    --primary: 187 100% 14%; /* #003E45 - Dark Teal */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 187 100% 26%; /* #007782 */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 210 10% 50%;
+    --accent: 190 100% 38%; /* #00A4C0 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 190 100% 38%;
+    --chart-1: 187 100% 14%;
+    --chart-2: 187 100% 26%;
+    --chart-3: 190 100% 38%;
+    --chart-4: 187 40% 50%;
+    --chart-5: 190 40% 60%;
+    --radius: 0rem;
+  }
+ 
+  .dark {
+    --background: 187 100% 5%;
+    --foreground: 200 20% 97%;
+    --card: 187 90% 9%;
+    --card-foreground: 200 20% 97%;
+    --popover: 187 100% 5%;
+    --popover-foreground: 200 20% 97%;
+    --primary: 190 100% 38%;
+    --primary-foreground: 187 100% 5%;
+    --secondary: 187 100% 26%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 187 20% 12%;
+    --muted-foreground: 180 10% 60%;
+    --accent: 190 100% 38%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 187 20% 15%;
+    --input: 187 20% 15%;
+    --ring: 190 100% 38%;
+    --chart-1: 190 100% 38%;
+    --chart-2: 187 100% 26%;
+    --chart-3: 190 80% 45%;
+    --chart-4: 187 40% 50%;
+    --chart-5: 190 40% 60%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline;
+  }
+
+  /* Custom cursor styles */
+  @media (pointer: fine) {
+    *:not(iframe) {
+      cursor: none;
+    }
+  }
+}
+
+@layer components {
+  .moving-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    background-size: 200% 200%;
+    animation: fluidMotion 15s ease infinite;
+  }
+
+  @keyframes fluidMotion {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Segmented Ring Cursor */
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    
+    background: transparent;
+
+    /* Segmented circular stroke */
+    mask:
+      radial-gradient(farthest-side, transparent 62%, #fff 64%) ,
+      conic-gradient(
+        from 0deg,
+        #fff 0deg 50deg,
+        transparent 50deg 90deg,
+        #fff 90deg 140deg,
+        transparent 140deg 180deg,
+        #fff 180deg 230deg,
+        transparent 230deg 270deg,
+        #fff 270deg 320deg,
+        transparent 320deg 360deg
+      );
+    -webkit-mask:
+      radial-gradient(farthest-side, transparent 62%, #fff 64%),
+      conic-gradient(
+        from 0deg,
+        #fff 0deg 50deg,
+        transparent 50deg 90deg,
+        #fff 90deg 140deg,
+        transparent 140deg 180deg,
+        #fff 180deg 230deg,
+        transparent 230deg 270deg,
+        #fff 270deg 320deg,
+        transparent 320deg 360deg
+      );
+
+    border: 1.5px solid white;
+    box-shadow: none;
+
+    transition:
+      width 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+      height 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 0.25s ease,
+      background 0.25s ease,
+      border-color 0.25s ease,
+      border-radius 0.25s ease,
+      transform 0.1s ease-out;
+  }
+  
+  .cursor-ring.hover {
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    background: hsla(0, 0%, 100%, 0.1);
+    border-color: white;
+    animation: rotateSegments 4s linear infinite;
+    mask: none;
+    -webkit-mask: none;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-ring.grabbing {
+    width: 28px;
+    height: 28px;
+    background: hsla(0, 0%, 100%, 0.15);
+    border-color: white;
+    transform: translate(-50%, -50%) scale(0.9);
+    animation: rotateSegments 2s linear infinite reverse;
+  }
+
+  @keyframes rotateSegments {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+}
+
+.liquid-glass-hover {
+    position: relative;
+    overflow: hidden;
+}
+
+.liquid-glass-hover::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    padding-bottom: 200%;
+    border-radius: 45%;
+    background: hsla(0, 0%, 100%, 0.1);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: transform 0.7s ease, opacity 0.7s ease;
+    z-index: 0;
+}
+
+.liquid-glass-hover:hover::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+}
+
+.liquid-glass-hover > * {
+    position: relative;
+    z-index: 1;
+}
